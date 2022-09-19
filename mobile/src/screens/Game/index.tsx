@@ -7,6 +7,7 @@ import { Background } from "../../components/Background";
 import { GameParams } from "../../@types/navigation";
 import { Heading } from "../../components/Heading";
 import { DuoCard, DuoCardProps } from "../../components/DuoCard";
+import { DuoMatch } from "../../components/DuoMatch";
 
 import logoImg from "../../assets/logo-nlw-esports.png";
 import { Entypo } from "@expo/vector-icons";
@@ -15,12 +16,19 @@ import { THEME } from "../../theme";
 
 export function Game() {
     const [duos, setDuos] = useState<DuoCardProps[]>([]);
+    const [discordDuoSelected, setDiscordDuoSelected] = useState('')
     const navigation = useNavigation();
     const route = useRoute();
     const game = route.params as GameParams;
 
     function handleGoBack() {
         navigation.goBack();
+    }
+
+    async function getDiscordUser(adsId: string) {
+        fetch(`http://192.168.1.19:3333/ads/${adsId}/discord`)
+        .then((response) => response.json())
+        .then((data) => setDiscordDuoSelected(data.discord));
     }
 
     useEffect(() => {
@@ -56,7 +64,7 @@ export function Game() {
                 <FlatList
                     data={duos}
                     keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => <DuoCard data={item} onConnect={ () => {}}/>}
+                    renderItem={({ item }) => <DuoCard data={item} onConnect={ () => getDiscordUser(item.id)}/>}
                     style={styles.containerList}
                     contentContainerStyle={[duos.length > 0 ? styles.contentList : styles.emptyListContent]}
                     showsHorizontalScrollIndicator={false}
@@ -66,6 +74,11 @@ export function Game() {
                         </Text>
                     )}
                     horizontal
+                />
+                <DuoMatch
+                    visible={discordDuoSelected.length > 0}
+                    onClose={() => setDiscordDuoSelected('')}
+                    discord={discordDuoSelected}
                 />
             </SafeAreaView>
         </Background>
