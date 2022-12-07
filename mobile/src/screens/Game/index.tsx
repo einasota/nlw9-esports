@@ -14,6 +14,8 @@ import { Entypo } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { THEME } from "../../theme";
 
+import {API_BASE} from '@env'
+
 export function Game() {
     const [duos, setDuos] = useState<DuoCardProps[]>([]);
     const [discordDuoSelected, setDiscordDuoSelected] = useState('')
@@ -26,13 +28,13 @@ export function Game() {
     }
 
     async function getDiscordUser(adsId: string) {
-        fetch(`http://192.168.1.19:3333/ads/${adsId}/discord`)
+        fetch(`${process.env.API_BASE}/ads/${adsId}/discord`)
         .then((response) => response.json())
         .then((data) => setDiscordDuoSelected(data.discord));
     }
 
     useEffect(() => {
-        fetch(`http://192.168.1.19:3333/games/${game.id}/ads`)
+        fetch(`${process.env.API_BASE}/games/${game.id}/ads`)
             .then((response) => response.json())
             .then((data) => setDuos(data));
     }, []);

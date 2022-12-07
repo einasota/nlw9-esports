@@ -7,8 +7,7 @@ import { GameCard, GameCardProps } from "../../components/GameCard";
 import { Heading } from "../../components/Heading";
 import logoImg from "../../assets/logo-nlw-esports.png";
 import { styles } from "./styles";
-
-
+import {API_BASE} from '@env'
 
 export function Home() {
     const [games, setGames] = useState<GameCardProps[]>([]);
@@ -20,7 +19,7 @@ export function Home() {
     }
 
     useEffect(() => {
-        fetch('http://192.168.1.19:3333/games')
+        fetch(`${process.env.API_BASE}/games`)
         .then(response => response.json())
         .then( data => setGames(data))
     }, [])

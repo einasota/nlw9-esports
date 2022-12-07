@@ -88,4 +88,6 @@ app.get('/ads/:id/discord',async (request, response) => {
     })
 })
 
-app.listen(3333);
+app.listen(3333, () =>{
+    console.log("O servidor está rodando na Porta 3333")
+});
