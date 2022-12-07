@@ -14,13 +14,12 @@
 </div>
 <div align="center" > 
 
-[About](#about) | [Technologies](#technologies) | 
+[About](#about) | [Technologies](#technologies) | [License](#license)
 
 </div>
 
 
 ## About
----
 
 NLW eSports is an app developed during the Next Level Week by the Ignite trail that is organized and presented by @Rocketseat where the use of the JavaScript Stack (TypeScript, NodeJS, React, React Native, HTML and CSS) is shown in a simple and intelligent way of how an App is developed in practice.
 
